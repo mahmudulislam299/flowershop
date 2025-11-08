@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
-module.exports = () => {
-  return mongoose.connect(
-    "mongodb+srv://sarsande1234:sarsande1234@cluster0.nuevl.mongodb.net/flower"
-  );
+const connect = () => {
+  return mongoose.connect(process.env.MONGO_URL, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+  });
 };
+
+module.exports = connect;

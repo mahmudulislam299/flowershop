@@ -1,48 +1,54 @@
 const express = require("express");
-
-const { Flower,Pot} = require("../models/flowermodel")
+const { Flower, Pot } = require("../models/flowermodel");
 
 const router = express.Router();
 
-// curd operation for flower 
+// Create flower
 router.post("/homepage", async (req, res) => {
   try {
-    let flower = await Flower.create(req.body);
-    res.status(201).send(flower);
+    const flower = await Flower.create(req.body);
+    return res.status(201).json(flower);
   } catch (err) {
-    console.log(err);
+    console.error("Error creating flower:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
+// Get all flowers
 router.get("/homepage", async (req, res) => {
   try {
-    let flower = await Flower.find().lean().exec();
-    res.status(200).send(flower);
+    const flowers = await Flower.find().lean().exec();
+    return res.status(200).json(flowers);
   } catch (err) {
-    console.log(err);
+    console.error("Error fetching flowers:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-// curd operation for flower 
+// Create pot
 router.post("/pot", async (req, res) => {
   try {
-    let pot = await Pot.create(req.body);
-    res.status(201).send(pot);
+    const pot = await Pot.create(req.body);
+    return res.status(201).json(pot);
   } catch (err) {
-    console.log(err);
+    console.error("Error creating pot:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
+// Get all pots
 router.get("/pot", async (req, res) => {
   try {
-    let pot = await Pot.find().lean().exec();
-    res.status(200).send(pot);
+    const pots = await Pot.find().lean().exec();
+    return res.status(200).json(pots);
   } catch (err) {
-    console.log(err);
+    console.error("Error fetching pots:", err);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
+router.get("/test", (req, res) => {
+  return res.send("Flower router is working");
+});
 
-
-
-module.exports = router;
+module.exports = router;    // ⬅️ important

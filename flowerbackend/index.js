@@ -1,39 +1,35 @@
+require("dotenv").config(); // Load .env first
+
 const express = require("express");
-
-const mongoose = require("mongoose");
-
-const controllers = require("./src/controllers/flowercontrollers");
-
-require("dotenv").config();
+const connect = require("./src/config/db");                 // ⬅️ note src/
+const flowerRouter = require("./src/controllers/flowercontrollers"); // ⬅️ note src/
 
 const app = express();
 
-// middle ware
+// Parse JSON body
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
-
-// router
-app.use("/flowers", controllers);
-
-// poet
-const PORT = 4000;
-//const PORT = 5000;
-
-// connect to the mongoose to mongodbatlas
-mongoose
-  .connect(process.env.MONGO_URL, { useNewUrlParser: true }) // use for new uirl
-  .then(() => {
-    console.log("connect to the atlas data base");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-app.listen(PORT, async () => {
-  try {
-    console.log("running on port", PORT);
-  } catch (err) {
-    console.log(err.message);
-  }
+// Simple root test route
+app.get("/", (req, res) => {
+  res.send("🌸 Flower API is running");
 });
+
+// Mount flower routes
+app.use("/flower", flowerRouter); // /flower/homepage, /flower/pot, etc.
+
+const PORT = process.env.PORT || 5001;
+
+const start = async () => {
+  try {
+    await connect();
+    console.log("✅ Connected to database");
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to connect to DB:", err);
+    process.exit(1);
+  }
+};
+
+start();
