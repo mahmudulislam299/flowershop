@@ -62,7 +62,7 @@ export function SignInSide() {
             md={7}
             sx={{
               backgroundImage:
-                "url(https://images.pexels.com/photos/4109993/pexels-photo-4109993.jpeg)",
+                 "url('/cake-logo.jpg')",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",

@@ -7,7 +7,7 @@ export const Footer = () => {
         <div>
           <img
             className="footer_logo"
-            src="https://images.pexels.com/photos/4109993/pexels-photo-4109993.jpeg"
+            src="cake-logo.jpg"
             alt="Shahbag Cake Shop Logo"
           />
         </div>

@@ -51,7 +51,7 @@ export function SignUpSide() {
             md={7}
             sx={{
               backgroundImage:
-                "url(https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg)",
+                 "url('/cake-logo.jpg')",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",

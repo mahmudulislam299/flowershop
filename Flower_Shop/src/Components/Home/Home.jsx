@@ -8,6 +8,9 @@ import slide2 from "../../images/slider2.jpg";
 import slide3 from "../../images/slider3.jpg";
 import slide4 from "../../images/slider4.jpg";
 
+// 👇 dynamically load all .jpg files from src/images (for best-seller cakes)
+const images = require.context("../../images", false, /\.jpg$/);
+
 const slides = [
   {
     id: 1,
@@ -46,21 +49,20 @@ export const HomePage = () => {
   const API_URL_RAW = process.env.REACT_APP_API_URL || "http://localhost:5001";
   const API_URL = API_URL_RAW.replace(/\/$/, "");
 
-  // Auto-slide effect
+  // 🧠 Auto-slide effect (every 5 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // change slide every 5s
-
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch some cakes for "Best Sellers" section
+  // 🧠 Fetch some cakes for "Best Sellers" section
   useEffect(() => {
     const fetchCakes = async () => {
       try {
         const res = await axios.get(`${API_URL}/cake/homepage`);
-        setCakes(res.data.slice(0, 6)); // show first 6 as best sellers
+        setCakes(res.data.slice(0, 6)); // first 6 cakes
       } catch (err) {
         console.error("Error fetching cakes for homepage:", err);
       }
@@ -68,22 +70,20 @@ export const HomePage = () => {
     fetchCakes();
   }, [API_URL]);
 
-  const handleDotClick = (index) => {
-    setCurrentSlide(index);
-  };
-
-  const handlePrev = () => {
+  const handleDotClick = (index) => setCurrentSlide(index);
+  const handlePrev = () =>
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const handleNext = () => {
+  const handleNext = () =>
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
 
-  const getImageUrl = (image) => {
-    if (!image) return "/cakes/default.jpg";
-    if (typeof image === "string" && image.startsWith("http")) return image;
-    return image; // imported local image
+  // ✅ get cake image from src/images/{id}.jpg with fallback
+  const getCakeImage = (cakeId) => {
+    try {
+      return images(`./${cakeId}.jpg`);
+    } catch (e) {
+      console.warn(`No local image found for cake id=${cakeId}`);
+      return slide1; // fallback
+    }
   };
 
   return (
@@ -97,7 +97,7 @@ export const HomePage = () => {
               index === currentSlide ? "active" : "inactive"
             }`}
             style={{
-              backgroundImage: `url(${getImageUrl(slide.image)})`,
+              backgroundImage: `url(${slide.image})`,
             }}
           >
             <div className="slide-overlay" />
@@ -140,12 +140,9 @@ export const HomePage = () => {
           {cakes.map((cake) => (
             <Link key={cake.id} to={`/cake/${cake.id}`} className="cake-card">
               <img
-                src={
-                  cake.image && cake.image.startsWith("http")
-                    ? cake.image
-                    : "/cakes/default.jpg"
-                }
+                src={getCakeImage(cake.id)}
                 alt={cake.name}
+                style={{ borderRadius: "10px" }}
               />
               <h3>{cake.name}</h3>
               <p>৳ {cake.price}</p>

@@ -1,23 +1,30 @@
-// src/Components/ProductPage/ProductPage.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./ProductPage.css";
-import placeholderCake from "../../images/slider1.jpg"; // fallback image
+import placeholderCake from "../../images/slider1.jpg"; // fallback
+
+// Load all .jpg files from ../../images
+// webpack will bundle them and allow dynamic access
+const images = require.context("../../images", false, /\.jpg$/);
 
 export const ProductPage = () => {
   const [cakes, setCakes] = useState([]);
 
-  // Base API URL (from .env or fallback)
+  // Base API URL
   const API_URL_RAW = process.env.REACT_APP_API_URL || "http://localhost:5001";
   const API_URL = API_URL_RAW.replace(/\/$/, ""); // remove trailing slash if any
   const home_url = `${API_URL}/cake/homepage`;
 
-  const getImageUrl = (image) => {
-    if (!image) return placeholderCake;
-    if (image.startsWith("http")) return image;
-    // future: map relative paths if you host images locally
-    return placeholderCake;
+  // Get image path by cake id (1.jpg, 2.jpg, ...)
+  const getImageUrl = (cake) => {
+    try {
+      // expect filenames like "1.jpg", "2.jpg" etc inside src/images
+      return images(`./${cake.id}.jpg`);
+    } catch (e) {
+      console.warn(`No local image found for cake id=${cake.id}, using fallback.`);
+      return placeholderCake;
+    }
   };
 
   useEffect(() => {
@@ -79,7 +86,7 @@ export const ProductPage = () => {
             className="productCard_link"
           >
             <div className="productDetail_productPage">
-              <img src={getImageUrl(cake.image)} alt={cake.name} />
+              <img src={getImageUrl(cake)} alt={cake.name} />
               <h3>{cake.name}</h3>
               <p className="product_price">৳ {cake.price}</p>
             </div>

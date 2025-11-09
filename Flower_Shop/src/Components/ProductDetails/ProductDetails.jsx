@@ -13,6 +13,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import placeholderCake from "../../images/slider1.jpg";
 
+// 👇 Load all .jpg files dynamically from src/images/
+const images = require.context("../../images", false, /\.jpg$/);
+
 export const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -25,10 +28,14 @@ export const ProductDetails = () => {
   const API_URL_RAW = process.env.REACT_APP_API_URL || "http://localhost:5001";
   const API_URL = API_URL_RAW.replace(/\/$/, "");
 
-  const getImageUrl = (image) => {
-    if (!image) return placeholderCake;
-    if (image.startsWith("http")) return image;
-    return placeholderCake;
+  // ✅ Get local image from src/images/{id}.jpg
+  const getImageUrl = (cakeId) => {
+    try {
+      return images(`./${cakeId}.jpg`);
+    } catch (e) {
+      console.warn(`No local image found for cake id=${cakeId}, using fallback.`);
+      return placeholderCake;
+    }
   };
 
   useEffect(() => {
@@ -83,10 +90,11 @@ export const ProductDetails = () => {
       <hr style={{ display: "flex", width: "90%" }} />
 
       <div style={{ display: "flex", width: "90%" }}>
+        {/* ✅ Uses local image with fallback */}
         <img
-          src={getImageUrl(data.image)}
+          src={getImageUrl(data.id)}
           alt={data.name || "Cake"}
-          style={{ margin: "auto", width: "450px" }}
+          style={{ margin: "auto", width: "450px", borderRadius: "10px" }}
         />
 
         <hr />
@@ -139,7 +147,6 @@ export const ProductDetails = () => {
               }}
             />
             <h4>Delivery Date</h4>
-            {/* later you can add a date picker */}
             <h5 style={{ marginTop: "10px" }}>Use Address Book</h5>
             <Stack direction="row" spacing={2} style={{ marginTop: "10px" }}>
               <Button

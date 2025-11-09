@@ -9,8 +9,8 @@ export const Navbar = () => {
         <Link to="/">
           <img
             className="logo_flower_shop"
-            src="https://images.pexels.com/photos/4109993/pexels-photo-4109993.jpeg" 
-            alt="Shahbag Cake Shop Logo"
+            src="cake-logo.jpg" 
+            alt="Logo"
           />
         </Link>
       </div>
