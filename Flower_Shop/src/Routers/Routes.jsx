@@ -14,6 +14,7 @@ import { CardPayment } from "../Components/Payment/CardPayment";
 import { ProductDetails } from "../Components/ProductDetails/ProductDetails";
 import { OrderPlaced } from "../Components/OrderDone/OrderDone";
 import { ProductDetailsHome } from "../Components/ProductDetails/ProductDetailsHome";
+import { UpiPayment } from "../Components/Payment/UpiPayment";
 
 export const AllRoutes = () => {
   return (
@@ -29,7 +30,7 @@ export const AllRoutes = () => {
         <Route path="/potted-plant" element={<Potted_Plants />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/card-payment" element={<CardPayment />} />
-        {/* home flowers details */}
+         <Route path="/upi-payment" element={<UpiPayment />} /> {/* 👈 new */}
         <Route path="/product-details/home/:id" element={<ProductDetailsHome />} />
         {/* potted plant details */}
         <Route path="/product-details/:id" element={<ProductDetails />} />
