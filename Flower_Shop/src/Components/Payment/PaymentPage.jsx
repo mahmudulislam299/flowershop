@@ -1,123 +1,55 @@
 import React from "react";
-// import {CardPayment} from "./CardPayment";
-
+import "./PaymentPage.css";
 
 export const PaymentPage = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        width: "60%",
-        marginTop: "50px",
-        margin: "auto",
-        boxShadow: "5px 5px 15px gray",
-        borderRadius: "15px",
-      }}
-    >
-      <div
-        style={{
-          width: "40%",
-          padding: "10px",
-          boxShadow: "5px 5px 5px gray",
-          borderRadius: "15px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            padding: "2px",
-            boxShadow: "0px 2px 0px whitesmoke",
-          }}
-        >
-          <div
-            style={{
-              width: "50%",
-              marginLeft: "50px",
-              textAlign: "right",
-            }}
-          >
-            <h3>Flower Shop</h3>
-          </div>
+    <div className="payment-container">
+      <div className="payment-left">
+        <div className="payment-header">
+          <h3>🎂 Shahbag Cake Shop</h3>
         </div>
-        <div>
-          <p style={{ fontSize: "30px", fontWeight: "500" }}>
-            Choose a payment option
-          </p>
-          <p style={{ fontWeight: "500" }}>Total Payable Amount: </p>
-          {/* <p style={{ fontWeight: "0" }}>Transaction Id: 100110125</p> */}
+        <div className="payment-summary">
+          <p className="payment-title">Choose a payment option</p>
+          <p>Total Payable Amount: ৳1200</p>
+          <p className="payment-note">Secure checkout — 100% safe payment</p>
         </div>
       </div>
-      <div
-        style={{
-          width: "60%",
-          padding: "10px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            padding: "2px",
-            boxShadow: "0px 2px 0px whitesmoke",
-          }}
-        >
-          <div
-            style={{
-              width: "50%",
-              margin: "2px",
-            }}
-          >
-            PAYMENT OPTIONS
-          </div>
-          <div
-            style={{
-              width: "50%",
-              textAlign: "right",
-            }}
-          >
-            <select id="language">
+
+      <div className="payment-right">
+        <div className="payment-options-header">
+          <div>PAYMENT OPTIONS</div>
+          <div>
+            <select id="language" className="lang-select">
               <option value="English">English</option>
-              <option value="Hindi">Hindi</option>
+              <option value="Bengali">বাংলা</option>
             </select>
           </div>
         </div>
-        <div style={{ width: "75%", margin: "auto", padding: "15px" }}>
-          <div>
-            <a style={{ textDecoration: "none" }} href="card-payment">
-              <h3 style={{ color: "black", marginBottom: "5px" }}>
-                Cards (Credit/Debit)
-              </h3>
-              <p style={{ color: "gray", marginTop: "5px" }}>
-                Visa, Mastercard, Diners Club, Rupay, Amex
-              </p>
-            </a>
+
+        <div className="payment-options">
+          <a href="/card-payment" className="pay-option">
+            <h3>💳 Cards (Credit/Debit)</h3>
+            <p>Visa, Mastercard, Amex</p>
+          </a>
+
+          <div className="pay-option">
+            <h3>🏦 Net Banking</h3>
+            <p>All Bangladeshi Banks</p>
           </div>
-          <hr style={{ border: "1px solid whitesmoke" }} />
-          <div style={{ cursor: "pointer" }}>
-            <h3 style={{ color: "black", marginBottom: "5px" }}>EMI</h3>
-            <p style={{ color: "gray", marginTop: "5px" }}>
-              Credit Card, Debit Card
-            </p>
+
+          <div className="pay-option">
+            <h3>📱 Mobile Wallets</h3>
+            <p>bkash, Nagad, Rocket, Upay</p>
           </div>
-          <hr style={{ border: "1px solid whitesmoke" }} />
-          <div style={{ cursor: "pointer" }}>
-            <h3 style={{ color: "black", marginBottom: "5px" }}>Wallet</h3>
-            <p style={{ color: "gray", marginTop: "5px" }}>
-              Amazon Pay, Paytm, PhonePe & more
-            </p>
-          </div>
-          <hr style={{ border: "1px solid whitesmoke" }} />
-          <div style={{ cursor: "pointer" }}>
-            <h3 style={{ color: "black", marginBottom: "5px" }}>Net Banking</h3>
-            <p style={{ color: "gray", marginTop: "5px" }}>All India Banks</p>
-          </div>
-          <hr style={{ border: "1px solid whitesmoke" }} />
-          <div>
-            <a style={{ textDecoration: "none" }} href="UpiPayment">
-              <h3 style={{ color: "black", marginBottom: "5px" }}>UPI</h3>
-              <p style={{ color: "gray", marginTop: "5px" }}>
-                Gpay, PhonePe, BHIM, Paytm
-              </p>
-            </a>
+
+          <a href="/upi-payment" className="pay-option">
+            <h3>💠 UPI / QR</h3>
+            <p>Pay with GPay, PhonePe, or bkash QR</p>
+          </a>
+
+          <div className="pay-option">
+            <h3>💵 Cash on Delivery</h3>
+            <p>Available in Dhaka City only</p>
           </div>
         </div>
       </div>

@@ -1,86 +1,48 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Sinup.css";
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {Googleauth} from '../sign-in/Googleauth'
-import {useNavigate} from "react-router-dom"
-const firebaseConfig = {
-  apiKey: "AIzaSyBfqqmZv7MBkJETNQfri9U8lv2wxl05H7U",
-  authDomain: "flowerstore-492cd.firebaseapp.com",
-  projectId: "flowerstore-492cd",
-  storageBucket: "flowerstore-492cd.appspot.com",
-  messagingSenderId: "70805200129",
-  appId: "1:70805200129:web:53def067e0873a5e068f00",
-  measurementId: "G-L3NR19PTBL"
-};
-const app = initializeApp(firebaseConfig);
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Googleauth } from "../sign-in/Googleauth";
 
 const theme = createTheme();
-const auth = getAuth();
+
 export function SignUpSide() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    var email = data.get("email");
-    var password = data.get("password");
+    const email = data.get("email");
+    const password = data.get("password");
+
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        alert("user created succesfully");
-        navigate("/signin")
-
-        // ...
+      .then(() => {
+        alert("🎉 Account created successfully!");
+        navigate("/signin");
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-        // ..
+      .catch((err) => {
+        alert(err.message);
       });
-
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   return (
     <div className="devcont">
       <ThemeProvider theme={theme}>
-        <Grid container component="main" sx={{ height: "40vh" }}>
+        <Grid container component="main" sx={{ height: "90vh" }}>
           <CssBaseline />
           <Grid
             item
@@ -89,12 +51,8 @@ export function SignUpSide() {
             md={7}
             sx={{
               backgroundImage:
-                "url(https://floranext.com/wp-content/uploads/2021/09/pasted-image-0.png)",
+                "url(https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg)",
               backgroundRepeat: "no-repeat",
-              backgroundColor: (t) =>
-                t.palette.mode === "light"
-                  ? t.palette.grey[50]
-                  : t.palette.grey[900],
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -117,17 +75,12 @@ export function SignUpSide() {
                 alignItems: "center",
               }}
             >
-              <div className="dev1">
-                <h3 className="dev5">SIGN UP FOR SALE UPDATES</h3>
-              </div>
-              <div className="dev2">
-                <h5 className="dev6">
-                  Get ideas, inspirations & offers in your inbox
-                </h5>
-              </div>
-              <div className="dev3">
-                <h4 className="dev7">BE THE FIRST TO KNOW</h4>
-              </div>
+              <Typography variant="h4" fontWeight={700} color="#c2185b">
+                🍰 Join Shahbag Cake Shop
+              </Typography>
+              <Typography variant="subtitle1" sx={{ mt: 1, mb: 2, color: "#777" }}>
+                Get exclusive cake offers, deals & baking inspiration!
+              </Typography>
 
               <Box
                 component="form"
@@ -153,36 +106,35 @@ export function SignUpSide() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="current-password"
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
-                  label="agree to terms and condition"
+                  label="I agree to receive sweet updates 🍪"
                 />
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    bgcolor: "#c2185b",
+                    "&:hover": { bgcolor: "#ad1457" },
+                  }}
                 >
-                  Sign Up
+                  Create Account
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2"></Link>
-                  </Grid>
+                <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link href="http://localhost:3000/signin" variant="body2">
-                      {"Already have an account? Sign in"}
+                    <Link href="/signin" variant="body2" color="#c2185b">
+                      Already have an account? Sign in
                     </Link>
                   </Grid>
                 </Grid>
-                <Grid>
-                
-              </Grid>
-             <Googleauth/>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
+                <Box sx={{ mt: 2 }}>
+                  <Googleauth />
+                </Box>
+              </Box>
             </Box>
           </Grid>
         </Grid>

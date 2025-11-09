@@ -1,0 +1,121 @@
+.wedding-container {
+  background: linear-gradient(to bottom, #fff8fa, #ffffff);
+  padding: 2rem 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.wedding-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.wedding-header h1 {
+  color: #c2185b;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.wedding-header p {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Grid layout */
+.wedding-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.wedding-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wedding-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(194, 24, 91, 0.2);
+}
+
+.wedding-img-wrap {
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.wedding-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wedding-card h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 6px 0;
+}
+
+.wedding-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+/* Buttons */
+.wedding-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #c2185b;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.wedding-btn:hover {
+  background: #ad1457;
+  transform: translateY(-2px);
+}
+
+/* Info section */
+.wedding-info {
+  max-width: 900px;
+  margin: 3rem auto;
+  text-align: center;
+  background: #fff7f9;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.1);
+}
+
+.wedding-info h2 {
+  color: #c2185b;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.wedding-info p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.contact-btn {
+  margin-top: 10px;
+  background: #2e7d32;
+}
+
+.contact-btn:hover {
+  background: #1b5e20;
+}

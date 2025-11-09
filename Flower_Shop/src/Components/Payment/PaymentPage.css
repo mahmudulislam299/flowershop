@@ -1,0 +1,207 @@
+/* 🍰 Shahbag Cake Shop — Payment & Order Styles */
+
+.payment-container {
+  display: flex;
+  width: 70%;
+  margin: 60px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  background: #fffdfd;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 🩷 Left Summary Section */
+.payment-left {
+  width: 40%;
+  background: linear-gradient(145deg, #fff0f5, #ffe3ed);
+  padding: 30px;
+  border-right: 2px solid #f8e0e5;
+}
+
+.payment-header h3 {
+  color: #c2185b;
+  font-weight: 700;
+  text-align: right;
+}
+
+.payment-summary {
+  margin-top: 30px;
+}
+
+.payment-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.payment-note {
+  font-size: 14px;
+  color: gray;
+}
+
+/* 💳 Right Payment Options */
+.payment-right {
+  width: 60%;
+  padding: 20px 30px;
+}
+
+.payment-options-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+}
+
+.lang-select {
+  border-radius: 6px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* 💰 Payment Option Cards */
+.payment-options {
+  margin-top: 20px;
+}
+
+.pay-option {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+  transition: color 0.2s ease;
+}
+
+.pay-option:hover h3 {
+  color: #c2185b;
+}
+
+/* 🧾 Card Form */
+.card-form {
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-form label {
+  font-weight: 500;
+  color: #333;
+}
+
+.card-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-form input:focus {
+  border-color: #c2185b;
+  box-shadow: 0 0 5px rgba(194, 24, 91, 0.3);
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 10px;
+  background: #c2185b;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pay-btn:hover {
+  background: #ad1457;
+}
+
+/* ✅ Order Confirmation */
+.order-success {
+  text-align: center;
+  margin-top: 60px;
+  font-family: "Poppins", sans-serif;
+}
+
+.order-success img {
+  width: 160px;
+}
+
+.order-success h2 {
+  color: #c2185b;
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.order-success p {
+  color: #555;
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.order-btn {
+  margin-top: 25px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.order-btn:hover {
+  background: #2e7d32;
+}
+
+/* 📱 Responsive */
+@media (max-width: 900px) {
+  .payment-container {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .payment-left,
+  .payment-right {
+    width: 100%;
+    padding: 20px;
+    border-right: none;
+  }
+
+  .payment-header h3 {
+    text-align: center;
+  }
+
+  .card-form {
+    width: 100%;
+  }
+}

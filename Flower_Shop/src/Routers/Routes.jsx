@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import { Navbar } from "../Components/Navbar/Navbar";
 import { HomePage } from "../Components/Home/Home";
 import { ProductPage } from "../Components/ProductPage/ProductPage";
@@ -15,24 +16,26 @@ import { OrderPlaced } from "../Components/OrderDone/OrderDone";
 import { ProductDetailsHome } from "../Components/ProductDetails/ProductDetailsHome";
 
 export const AllRoutes = () => {
-    return (
-      <>
-        <Navbar />
-        <Routes>
-          <Route exact path="/" element={<HomePage />} />
-          <Route exact path="/wedding" element={<WeddingPage />} />
-          <Route exact path="/product-page" element={<ProductPage />} />
-          <Route path="/signup" element={<SignUpSide />} />
-          <Route path="/signin" element={<SignInSide />} />
-          <Route path="/forgotpass" element={<Forgotpass />} />
-          <Route path="/potted-plant" element={<Potted_Plants/>} />
-          <Route path="/payment" element={<PaymentPage/>} />
-          <Route path="/card-payment" element={<CardPayment/>} />
-          <Route path="/product-details/:id" element={<ProductDetails/>} />
-          <Route path="/product-details/home/:id" element={<ProductDetailsHome/>} />
-          <Route path="/orderdone" element={<OrderPlaced/>} />
-        </Routes>
-        <Footer />
-      </>
-    );
-}
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/wedding" element={<WeddingPage />} />
+        <Route path="/product-page" element={<ProductPage />} />
+        <Route path="/signup" element={<SignUpSide />} />
+        <Route path="/signin" element={<SignInSide />} />
+        <Route path="/forgotpass" element={<Forgotpass />} />
+        <Route path="/potted-plant" element={<Potted_Plants />} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/card-payment" element={<CardPayment />} />
+        {/* home flowers details */}
+        <Route path="/product-details/home/:id" element={<ProductDetailsHome />} />
+        {/* potted plant details */}
+        <Route path="/product-details/:id" element={<ProductDetails />} />
+        <Route path="/orderdone" element={<OrderPlaced />} />
+      </Routes>
+      <Footer />
+    </>
+  );
+};
