@@ -1,25 +1,24 @@
-require("dotenv").config();
 const express = require("express");
-const connect = require("./src/config/db");                 // ⬅️ note src/
-const flower_data = require("./src/controllers/flowercontrollers");  // ⬅️ note src/
+const cors = require("cors");
+const connectDB = require("./config/db"); // src/config/db.js
+const cakeRouter = require("./controllers/cakecontrollers"); // src/controllers/cakecontrollers.js
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
-app.use("/flower", flower_data);
+
+// Connect MongoDB
+connectDB();
+
+// Routes
+app.use("/cake", cakeRouter);
+
+app.get("/", (req, res) => {
+  res.send("Cake Shop API is running 🍰");
+});
 
 const PORT = process.env.PORT || 5001;
-
-const start = async () => {
-  try {
-    await connect();
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error("❌ DB connection failed:", err);
-    process.exit(1);
-  }
-};
-
-start();
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
