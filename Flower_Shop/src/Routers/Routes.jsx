@@ -1,42 +1,52 @@
+// src/Routers/Routes.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { HomePage } from "../Components/Home/Home"; 
 import { Navbar } from "../Components/Navbar/Navbar";
-import { HomePage } from "../Components/Home/Home";
 import { ProductPage } from "../Components/ProductPage/ProductPage";
-import { WeddingPage } from "../Components/Wedding/WeddingPage";
 import { Footer } from "../Components/Footer/Footer";
 import { SignInSide } from "../Components/sign-in/Login";
 import { SignUpSide } from "../Components/sign-up/SignUp";
-import { Potted_Plants } from "../Components/Potted_Plants/Potted_Plants";
 import Forgotpass from "../Components/sign-in/Forgotpass";
 import { PaymentPage } from "../Components/Payment/PaymentPage";
 import { CardPayment } from "../Components/Payment/CardPayment";
 import { ProductDetails } from "../Components/ProductDetails/ProductDetails";
 import { OrderPlaced } from "../Components/OrderDone/OrderDone";
-import { ProductDetailsHome } from "../Components/ProductDetails/ProductDetailsHome";
 import { UpiPayment } from "../Components/Payment/UpiPayment";
 
-export const AllRoutes = () => {
+const AppRoutes = () => {
   return (
     <>
       <Navbar />
       <Routes>
+        {/* 🔹 Main cake listing page */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/wedding" element={<WeddingPage />} />
         <Route path="/product-page" element={<ProductPage />} />
+        <Route path="/cake/:id" element={<ProductDetails />} />
+
+        {/* <Route path="/" element={<ProductPage />} />
+        <Route path="/cakes" element={<ProductPage />} />
+        <Route path="/product-page" element={<ProductPage />} /> */}
+
+        {/* 🔹 Single cake details */}
+        <Route path="/cake/:id" element={<ProductDetails />} />
+
+        {/* 🔹 Auth routes */}
         <Route path="/signup" element={<SignUpSide />} />
         <Route path="/signin" element={<SignInSide />} />
         <Route path="/forgotpass" element={<Forgotpass />} />
-        <Route path="/potted-plant" element={<Potted_Plants />} />
+
+        {/* 🔹 Payment flow */}
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/card-payment" element={<CardPayment />} />
-         <Route path="/upi-payment" element={<UpiPayment />} /> {/* 👈 new */}
-        <Route path="/product-details/home/:id" element={<ProductDetailsHome />} />
-        {/* potted plant details */}
-        <Route path="/product-details/:id" element={<ProductDetails />} />
+        <Route path="/upi-payment" element={<UpiPayment />} />
+
+        {/* 🔹 Order done */}
         <Route path="/orderdone" element={<OrderPlaced />} />
       </Routes>
       <Footer />
     </>
   );
 };
+
+export default AppRoutes;

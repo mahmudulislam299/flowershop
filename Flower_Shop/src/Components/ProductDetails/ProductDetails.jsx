@@ -1,3 +1,4 @@
+// src/Components/ProductDetails/ProductDetails.jsx
 import React, { useState, useEffect } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -10,45 +11,81 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import KeyboardDatePickerExample from "./Calendar";
+import placeholderCake from "../../images/slider1.jpg";
 
 export const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [value, setValue] = useState("standard");
-  const [data, setData] = useState({});
+  const [value, setValue] = useState("1-pound");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+  const API_URL_RAW = process.env.REACT_APP_API_URL || "http://localhost:5001";
+  const API_URL = API_URL_RAW.replace(/\/$/, "");
+
+  const getImageUrl = (image) => {
+    if (!image) return placeholderCake;
+    if (image.startsWith("http")) return image;
+    return placeholderCake;
+  };
 
   useEffect(() => {
-    getData();
-  }, [id]);
+    const getData = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const res = await axios.get(`${API_URL}/cake/homepage/${id}`);
+        console.log("ProductDetails (cake) data:", res.data);
+
+        if (!res.data || !res.data.name) {
+          setError("Cake not found.");
+          setData(null);
+        } else {
+          setData(res.data);
+        }
+      } catch (err) {
+        console.error("Error fetching cake details:", err);
+        setError("Failed to load cake details.");
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      getData();
+    }
+  }, [id, API_URL]);
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  const getData = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/flower/pot/${id}`);
-      setData(res.data);
-      console.log("ProductDetails (pot) data:", res.data);
-    } catch (err) {
-      console.error("Error fetching pot product details:", err);
-    }
-  };
+  if (loading) {
+    return <div className="product-container">Loading cake details...</div>;
+  }
+
+  if (error) {
+    return <div className="product-container">{error}</div>;
+  }
+
+  if (!data) {
+    return <div className="product-container">No data found.</div>;
+  }
 
   return (
     <div className="product-container">
       <h1>{data.name}</h1>
-      <h4>Price : {data.price}</h4>
+      <h4>Price: ৳ {data.price}</h4>
       <hr style={{ display: "flex", width: "90%" }} />
 
       <div style={{ display: "flex", width: "90%" }}>
         <img
-          src={data.image}
-          alt={data.name || "Product"}
+          src={getImageUrl(data.image)}
+          alt={data.name || "Cake"}
           style={{ margin: "auto", width: "450px" }}
         />
 
@@ -63,9 +100,19 @@ export const ProductDetails = () => {
               onChange={handleChange}
             >
               <FormControlLabel
-                value="standard"
+                value="1-pound"
                 control={<Radio />}
-                label="Standard-color"
+                label="1 Pound"
+              />
+              <FormControlLabel
+                value="2-pound"
+                control={<Radio />}
+                label="2 Pound"
+              />
+              <FormControlLabel
+                value="3-pound"
+                control={<Radio />}
+                label="3 Pound"
               />
             </RadioGroup>
           </FormControl>
@@ -75,20 +122,26 @@ export const ProductDetails = () => {
           <FormGroup style={{ marginLeft: "40%" }}>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              label="PICK UP IN STORE"
+              label="Home Delivery"
             />
+            <FormControlLabel control={<Checkbox />} label="Pickup from Shop" />
           </FormGroup>
 
-          <div style={{ width: "20%", height: "50%", margin: "auto" }}>
+          <div style={{ width: "60%", margin: "20px auto" }}>
             <input
               type="text"
-              placeholder="Enter Pin Code"
-              style={{ marginBottom: "5%" }}
+              placeholder="Enter Delivery Area / Zip Code"
+              style={{
+                width: "100%",
+                marginBottom: "10px",
+                padding: "8px",
+                boxSizing: "border-box",
+              }}
             />
             <h4>Delivery Date</h4>
-            {/* <KeyboardDatePickerExample /> */}
-            <h5>Use Address Book</h5>
-            <Stack direction="row" spacing={2}>
+            {/* later you can add a date picker */}
+            <h5 style={{ marginTop: "10px" }}>Use Address Book</h5>
+            <Stack direction="row" spacing={2} style={{ marginTop: "10px" }}>
               <Button
                 variant="contained"
                 onClick={() => navigate(`/payment`)}

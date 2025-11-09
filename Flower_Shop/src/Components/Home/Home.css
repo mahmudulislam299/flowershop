@@ -1,309 +1,206 @@
-.home_wrapper {
-  background: linear-gradient(to bottom, #fff7fb, #ffffff);
+.home-container {
+  width: 100%;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Main layout */
-.flower_Main {
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px auto 60px;
-  padding: 0 16px;
-}
+/* ===== Hero Slider Section ===== */
 
-/* Slider */
-.flower_home_slider {
-  margin: 0 auto;
-  height: 360px;
+.hero-slider {
+  position: relative;
   width: 100%;
-  max-width: 1100px;
-  border-radius: 18px;
+  height: 420px;
+  margin-top: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
 }
 
-/* 🔹 Top categories strip */
-.home_categories {
-  max-width: 1100px;
-  margin: 18px auto 10px;
-  padding: 0 4px;
-}
-
-.home_categories h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #c2185b;
-  margin-bottom: 8px;
-}
-
-.home_categories_list {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-
-.home_categories_list::-webkit-scrollbar {
-  height: 4px;
-}
-.home_categories_list::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
-  border-radius: 999px;
-}
-
-.category_chip {
-  border-radius: 999px;
-  border: 1px solid #e90a4d;
-  padding: 6px 14px;
-  font-size: 0.85rem;
-  background: #ffffff;
-  color: #c2185b;
-  white-space: nowrap;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
-}
-
-.category_chip:hover {
-  background: #e90a4d;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* About / info section */
-.flower_home_about {
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin: 30px auto 20px;
-  display: grid;
-  grid-template-columns: 1.1fr 1.6fr 1.1fr;
-  gap: 20px;
-  align-items: stretch;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
-.flower_home_card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 18px 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
 }
 
-.flower_home_card h3 {
-  margin-bottom: 8px;
-  color: #e91e63;
-  font-size: 1.1rem;
+.hero-slide.inactive {
+  z-index: 0;
 }
 
-.flower_home_card p {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.5;
-  margin-bottom: 12px;
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.2)
+  );
 }
 
-.flower_home_center {
-  background: linear-gradient(135deg, #ffe4ef, #ffffff);
-  border-radius: 16px;
-  padding: 22px 24px;
-  box-shadow: 0 6px 20px rgba(233, 10, 77, 0.12);
-}
-
-.flower_home_center h2 {
-  margin-bottom: 10px;
-  color: #c2185b;
-}
-
-.flower_home_center p {
-  font-size: 0.95rem;
-  color: #444;
-  line-height: 1.6;
-}
-
-.home_highlight {
-  margin-top: 8px;
-  font-weight: 600;
-  color: #2e7d32;
-}
-
-/* Links */
-.home_link {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e91e63;
-  text-decoration: none;
-}
-
-.home_link:hover {
-  text-decoration: underline;
-}
-
-.home_link_btn {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 16px;
-  background: #e91e63;
+.slide-text {
+  position: relative;
+  z-index: 2;
   color: #fff;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: background 0.2s ease, transform 0.1s ease;
+  text-align: left;
+  max-width: 600px;
+  margin-left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.home_link_btn:hover {
-  background: #c2185b;
-  transform: translateY(-1px);
+.slide-text h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
 }
 
-/* Section titles */
-.flower_section {
-  margin-top: 40px;
-}
-
-.section_title {
-  text-align: center;
-  font-size: 1.6rem;
-  margin-bottom: 4px;
-  color: #c2185b;
-}
-
-.section_subtitle {
-  text-align: center;
-  font-size: 0.95rem;
-  color: #666;
+.slide-text p {
+  font-size: 1.1rem;
   margin-bottom: 20px;
 }
 
-/* Product (cake) grid */
-.flower_div {
-  width: 100%;
-  margin: 0 auto 60px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 20px;
-}
-
-.flower_div_first {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 10px 10px 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.flower_div_first:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.flower_image_wrap {
-  width: 100%;
-  height: 230px;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.flower_image_wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.flower_name {
-  font-size: 1rem;
-  margin: 4px 0;
-  text-align: center;
-  color: #333;
-}
-
-.flower_price {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #2e7d32;
-  margin-bottom: 8px;
-}
-
-.flower_btn {
-  border: none;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: #e91e63;
+.explore-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #e74c3c;
   color: #fff;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.flower_btn:hover {
-  background: #c2185b;
-  transform: translateY(-1px);
-}
-
-/* Desserts / cupcakes banner */
-.potted_plants {
-  width: 100%;
-  margin: 0 auto 40px;
-}
-
-.potted_plants_inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: #fff7f9;
-  border-radius: 18px;
-  padding: 20px 24px;
-  display: grid;
-  grid-template-columns: 1.5fr 1.3fr;
-  gap: 20px;
-  align-items: center;
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.15);
-}
-
-.potted_plants_inner h2 {
-  margin-bottom: 8px;
-  color: #c2185b;
-}
-
-.potted_plants_inner p {
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
   font-size: 0.95rem;
-  color: #444;
-  line-height: 1.6;
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
-.potted_plants_inner img {
+.explore-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(231, 76, 60, 0.6);
+}
+
+/* Arrows */
+
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
+  z-index: 3;
+}
+
+.hero-arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.hero-arrow.left {
+  left: 18px;
+}
+
+.hero-arrow.right {
+  right: 18px;
+}
+
+/* Dots */
+
+.hero-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hero-dot.active-dot {
+  background: #e74c3c;
+  transform: scale(1.1);
+}
+
+/* ===== Featured Cakes ===== */
+
+.featured-cakes {
+  padding: 40px 5%;
+}
+
+.featured-cakes h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: left;
+}
+
+.cake-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  justify-items: center;
+}
+
+.cake-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cake-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+}
+
+.cake-card img {
   width: 100%;
-  border-radius: 14px;
+  height: 170px;
+  border-radius: 10px;
   object-fit: cover;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .flower_home_about {
-    grid-template-columns: 1fr;
-  }
-
-  .potted_plants_inner {
-    grid-template-columns: 1fr;
-  }
+.cake-card h3 {
+  margin: 10px 0 4px;
+  font-size: 1.05rem;
 }
 
-@media (max-width: 600px) {
-  .flower_home_slider {
-    height: 260px;
-  }
-
-  .flower_image_wrap {
-    height: 200px;
-  }
-
-  .home_categories h3 {
-    font-size: 0.95rem;
-  }
+.cake-card p {
+  color: #e74c3c;
+  font-weight: 600;
+  margin: 0;
 }
