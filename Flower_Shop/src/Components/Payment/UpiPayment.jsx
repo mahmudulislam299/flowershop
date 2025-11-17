@@ -44,7 +44,7 @@ export const UpiPayment = () => {
 
         <div className="payment-right">
           <div className="payment-options-header">
-            <div>Select Wallet / UPI</div>
+            <div>Select Wallet</div>
             <div>
               <select id="language" className="lang-select">
                 <option value="English">English</option>
@@ -109,13 +109,13 @@ export const UpiPayment = () => {
 
               <form className="upi-form" onSubmit={handlePay}>
                 <label>
-                  Mobile / UPI ID
+                  Mobile
                   <input
                     type="text"
                     placeholder={
                       method === "bkash"
                         ? "01XXXXXXXXX"
-                        : "yourname@upi / mobile number"
+                        : "01XXXXXXXXX"
                     }
                     value={upiId}
                     onChange={(e) => setUpiId(e.target.value)}

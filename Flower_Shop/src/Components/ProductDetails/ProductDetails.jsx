@@ -5,8 +5,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useParams, useNavigate } from "react-router-dom";
@@ -20,10 +18,16 @@ export const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [value, setValue] = useState("1-pound");
+  const [value, setValue] = useState("1-pound"); // selected size
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // delivery related state
+  const [deliveryMethod, setDeliveryMethod] = useState("home"); // "home" | "pickup"
+  const [address, setAddress] = useState("");
+  const [deliveryDate, setDeliveryDate] = useState("");
+  const [deliveryTime, setDeliveryTime] = useState("");
 
   const API_URL_RAW = process.env.REACT_APP_API_URL || "http://localhost:5001";
   const API_URL = API_URL_RAW.replace(/\/$/, "");
@@ -67,8 +71,48 @@ export const ProductDetails = () => {
     }
   }, [id, API_URL]);
 
-  const handleChange = (event) => {
+  const handleSizeChange = (event) => {
     setValue(event.target.value);
+  };
+
+  // 🔢 price multiplier based on selected pound
+  const getMultiplier = () => {
+    if (value === "2-pound") return 2;
+    if (value === "3-pound") return 3;
+    return 1; // default 1-pound
+  };
+
+  const basePrice = Number(data?.price) || 0;      // price per pound
+  const multiplier = getMultiplier();
+  const finalPrice = basePrice * multiplier;       // total price based on size
+
+  const handleCheckout = () => {
+    // Simple validation
+    if (!deliveryDate || !deliveryTime) {
+      alert("Please select delivery date and time.");
+      return;
+    }
+
+    if (deliveryMethod === "home" && !address.trim()) {
+      alert("Please enter delivery address.");
+      return;
+    }
+
+    // You can pass data to payment page
+    navigate("/payment", {
+      state: {
+        productId: data.id,
+        productName: data.name,
+        basePrice,
+        multiplier,
+        price: finalPrice,          // ✅ send calculated price
+        size: value,
+        deliveryMethod,
+        address: deliveryMethod === "home" ? address : null,
+        deliveryDate,
+        deliveryTime,
+      },
+    });
   };
 
   if (loading) {
@@ -86,10 +130,16 @@ export const ProductDetails = () => {
   return (
     <div className="product-container">
       <h1>{data.name}</h1>
-      <h4>Price: ৳ {data.price}</h4>
+
+      {/* 💰 Dynamic price */}
+      <h4>Price: ৳ {finalPrice}</h4>
+      <p style={{ marginTop: "-8px", color: "#777" }}>
+        Base price (per pound): ৳ {basePrice}
+      </p>
+
       <hr style={{ display: "flex", width: "90%" }} />
 
-      <div style={{ display: "flex", width: "90%" }}>
+      <div style={{ display: "flex", width: "90%", gap: "24px" }}>
         {/* ✅ Uses local image with fallback */}
         <img
           src={getImageUrl(data.id)}
@@ -97,15 +147,15 @@ export const ProductDetails = () => {
           style={{ margin: "auto", width: "450px", borderRadius: "10px" }}
         />
 
-        <hr />
         <div style={{ margin: "auto", width: "50%" }}>
-          <FormControl>
+          {/* Size selection */}
+          <FormControl component="fieldset" style={{ marginBottom: "16px" }}>
             <FormLabel id="size-group">Select Size</FormLabel>
             <RadioGroup
               aria-labelledby="size-group"
               name="size-radio-group"
               value={value}
-              onChange={handleChange}
+              onChange={handleSizeChange}
             >
               <FormControlLabel
                 value="1-pound"
@@ -127,18 +177,55 @@ export const ProductDetails = () => {
 
           <hr style={{ width: "60%" }} />
 
-          <FormGroup style={{ marginLeft: "40%" }}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Home Delivery"
-            />
-            <FormControlLabel control={<Checkbox />} label="Pickup from Shop" />
-          </FormGroup>
+          {/* Delivery method (mutually exclusive) */}
+          <FormControl component="fieldset" style={{ marginTop: "16px" }}>
+            <FormLabel>Delivery Method</FormLabel>
+            <RadioGroup
+              name="delivery-method"
+              value={deliveryMethod}
+              onChange={(e) => setDeliveryMethod(e.target.value)}
+            >
+              <FormControlLabel
+                value="home"
+                control={<Radio />}
+                label="Home Delivery"
+              />
+              <FormControlLabel
+                value="pickup"
+                control={<Radio />}
+                label="Pickup from Shop"
+              />
+            </RadioGroup>
+          </FormControl>
 
-          <div style={{ width: "60%", margin: "20px auto" }}>
+          {/* Address - only for home delivery */}
+          {deliveryMethod === "home" && (
+            <div style={{ width: "60%", margin: "16px 0" }}>
+              <label style={{ display: "block", marginBottom: "4px" }}>
+                Delivery Address
+              </label>
+              <textarea
+                placeholder="House / Road / Area / City / Zip Code"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                style={{
+                  width: "100%",
+                  minHeight: "70px",
+                  padding: "8px",
+                  boxSizing: "border-box",
+                  resize: "vertical",
+                }}
+              />
+            </div>
+          )}
+
+          {/* Date & time */}
+          <div style={{ width: "60%", margin: "16px 0" }}>
+            <h4>Delivery Date</h4>
             <input
-              type="text"
-              placeholder="Enter Delivery Area / Zip Code"
+              type="date"
+              value={deliveryDate}
+              onChange={(e) => setDeliveryDate(e.target.value)}
               style={{
                 width: "100%",
                 marginBottom: "10px",
@@ -146,13 +233,25 @@ export const ProductDetails = () => {
                 boxSizing: "border-box",
               }}
             />
-            <h4>Delivery Date</h4>
-            <h5 style={{ marginTop: "10px" }}>Use Address Book</h5>
+
+            <h4>Delivery Time</h4>
+            <input
+              type="time"
+              value={deliveryTime}
+              onChange={(e) => setDeliveryTime(e.target.value)}
+              style={{
+                width: "100%",
+                marginTop: "4px",
+                padding: "8px",
+                boxSizing: "border-box",
+              }}
+            />
+          </div>
+
+          {/* Checkout */}
+          <div style={{ width: "60%", margin: "20px auto 0" }}>
             <Stack direction="row" spacing={2} style={{ marginTop: "10px" }}>
-              <Button
-                variant="contained"
-                onClick={() => navigate(`/payment`)}
-              >
+              <Button variant="contained" onClick={handleCheckout}>
                 Checkout
               </Button>
             </Stack>

@@ -40,7 +40,7 @@ export const PaymentPage = () => {
           <div className="payment-options">
             <Link to="/card-payment" className="pay-option">
               <h3>💳 Cards (Credit / Debit)</h3>
-              <p>Visa, Mastercard, Amex</p>
+              <p>Visa, Mastercard</p>
             </Link>
 
             <div className="pay-option disabled">
@@ -48,14 +48,14 @@ export const PaymentPage = () => {
               <p>All Bangladeshi Banks (Coming soon)</p>
             </div>
 
-            <div className="pay-option">
+            {/* <div className="pay-option">
               <h3>📱 Mobile Wallets</h3>
-              <p>bkash, Nagad, Rocket, Upay (via UPI/QR)</p>
-            </div>
+              <p>bkash, Nagad, Rocket, (via QR)</p>
+            </div> */}
 
             <Link to="/upi-payment" className="pay-option">
-              <h3>💠 UPI / QR</h3>
-              <p>Pay with bkash QR, Nagad, or UPI apps</p>
+              <h3>💠 Mobile Banking</h3>
+              <p>Pay with bkash QR, Nagad</p>
             </Link>
 
             <div className="pay-option">
