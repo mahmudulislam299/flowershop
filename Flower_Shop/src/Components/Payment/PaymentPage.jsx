@@ -1,9 +1,20 @@
+// src/Components/PaymentPage/PaymentPage.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./PaymentPage.css";
 
 export const PaymentPage = () => {
-  const cart_total = JSON.parse(localStorage.getItem("cart_total")) || 1200;
+  const location = useLocation();
+  const stateOrder = location.state || null;
+  const storedOrder =
+    JSON.parse(localStorage.getItem("order_info") || "null") || null;
+
+  const order = stateOrder || storedOrder || {};
+
+  const cart_total =
+    order.price ||
+    JSON.parse(localStorage.getItem("cart_total") || "0") ||
+    1200;
 
   return (
     <div className="payment-page">
@@ -13,11 +24,53 @@ export const PaymentPage = () => {
             <h3>🎂 Shahbag Cake Shop</h3>
             <p>Choose your preferred payment method</p>
           </div>
+
+          {/* Order info (if available) */}
+          {(order.productName || order.deliveryDate || order.deliveryTime) && (
+            <div className="order-info">
+              {order.productName && (
+                <p>
+                  <strong>Product:</strong> {order.productName}
+                </p>
+              )}
+              {order.size && (
+                <p>
+                  <strong>Size:</strong> {order.size.replace("-", " ")}
+                </p>
+              )}
+              {order.deliveryMethod && (
+                <p>
+                  <strong>Delivery:</strong>{" "}
+                  {order.deliveryMethod === "home"
+                    ? "Home Delivery"
+                    : "Pickup from Shop"}
+                </p>
+              )}
+              {order.deliveryDate && (
+                <p>
+                  <strong>Date:</strong> {order.deliveryDate}
+                </p>
+              )}
+              {order.deliveryTime && (
+                <p>
+                  <strong>Time:</strong> {order.deliveryTime}
+                </p>
+              )}
+              {order.deliveryMethod === "home" && order.address && (
+                <p>
+                  <strong>Address:</strong> {order.address}
+                </p>
+              )}
+            </div>
+          )}
+
           <div className="payment-summary">
             <p className="payment-title">Checkout Summary</p>
             <p className="payment-amount">Total Payable Amount</p>
             <p className="payment-amount-value">৳{cart_total}</p>
-            <p className="payment-note">Secure checkout — 100% safe payment (Demo)</p>
+            <p className="payment-note">
+              Secure checkout — 100% safe payment (Demo)
+            </p>
           </div>
           <ul className="payment-benefits">
             <li>✔ Same-day delivery available in Dhaka</li>
@@ -47,11 +100,6 @@ export const PaymentPage = () => {
               <h3>🏦 Net Banking</h3>
               <p>All Bangladeshi Banks (Coming soon)</p>
             </div>
-
-            {/* <div className="pay-option">
-              <h3>📱 Mobile Wallets</h3>
-              <p>bkash, Nagad, Rocket, (via QR)</p>
-            </div> */}
 
             <Link to="/upi-payment" className="pay-option">
               <h3>💠 Mobile Banking</h3>

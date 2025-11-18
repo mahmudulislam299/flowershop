@@ -10,7 +10,7 @@ import Stack from "@mui/material/Stack";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import placeholderCake from "../../images/slider1.jpg";
-import "./ProductDetails.css"; // 👈 NEW
+import "./ProductDetails.css";
 
 // 👇 Load all .jpg files dynamically from src/images/
 const images = require.context("../../images", false, /\.jpg$/);
@@ -99,20 +99,27 @@ export const ProductDetails = () => {
       return;
     }
 
-    // You can pass data to payment page
+    // 🔹 Save total & order info so all payment pages can read it
+    localStorage.setItem("cart_total", JSON.stringify(finalPrice));
+
+    const orderInfo = {
+      productId: data.id,
+      productName: data.name,
+      basePrice,
+      multiplier,
+      price: finalPrice,
+      size: value,
+      deliveryMethod,
+      address: deliveryMethod === "home" ? address : null,
+      deliveryDate,
+      deliveryTime,
+    };
+
+    localStorage.setItem("order_info", JSON.stringify(orderInfo));
+
+    // Navigate to main payment selection page
     navigate("/payment", {
-      state: {
-        productId: data.id,
-        productName: data.name,
-        basePrice,
-        multiplier,
-        price: finalPrice,
-        size: value,
-        deliveryMethod,
-        address: deliveryMethod === "home" ? address : null,
-        deliveryDate,
-        deliveryTime,
-      },
+      state: orderInfo,
     });
   };
 

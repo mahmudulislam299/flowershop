@@ -1,3 +1,4 @@
+// src/Components/PaymentPage/CardPayment.jsx
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,8 @@ export const CardPayment = () => {
     tnc: false,
   });
 
-  const cart_total = JSON.parse(localStorage.getItem("cart_total")) || 1200;
+  const cart_total =
+    JSON.parse(localStorage.getItem("cart_total") || "0") || 1200;
 
   const handleInputChange = (e) => {
     const { id, value, type, checked } = e.target;
@@ -29,7 +31,7 @@ export const CardPayment = () => {
 
     if (!data.tnc) {
       alert("Please agree to save card or uncheck if not needed.");
-      // Or make it just an optional label – your choice
+      // or you can remove this check if you want it optional
     }
 
     axios
@@ -136,7 +138,9 @@ export const CardPayment = () => {
             <button type="submit" className="pay-btn">
               PAY ৳{cart_total}
             </button>
-            <p className="secure-text">🔐 Your card details are never stored in plain text.</p>
+            <p className="secure-text">
+              🔐 Your card details are never stored in plain text.
+            </p>
           </form>
         </div>
       </div>

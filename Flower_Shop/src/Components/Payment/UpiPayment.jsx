@@ -1,3 +1,4 @@
+// src/Components/PaymentPage/UpiPayment.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PaymentPage.css";
@@ -7,7 +8,8 @@ export const UpiPayment = () => {
   const [upiId, setUpiId] = useState("");
   const navigate = useNavigate();
 
-  const cart_total = JSON.parse(localStorage.getItem("cart_total")) || 1200;
+  const cart_total =
+    JSON.parse(localStorage.getItem("cart_total") || "0") || 1200;
 
   const handlePay = (e) => {
     e.preventDefault();
@@ -112,11 +114,7 @@ export const UpiPayment = () => {
                   Mobile
                   <input
                     type="text"
-                    placeholder={
-                      method === "bkash"
-                        ? "01XXXXXXXXX"
-                        : "01XXXXXXXXX"
-                    }
+                    placeholder="01XXXXXXXXX"
                     value={upiId}
                     onChange={(e) => setUpiId(e.target.value)}
                   />
