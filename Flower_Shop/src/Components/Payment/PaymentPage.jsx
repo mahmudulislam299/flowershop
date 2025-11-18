@@ -21,7 +21,7 @@ export const PaymentPage = () => {
       <div className="payment-container">
         <div className="payment-left">
           <div className="payment-header">
-            <h3>🎂 Shahbag Cake Shop</h3>
+            <h3>🎂 Aishajaa's Cake Shop</h3>
             <p>Choose your preferred payment method</p>
           </div>
 

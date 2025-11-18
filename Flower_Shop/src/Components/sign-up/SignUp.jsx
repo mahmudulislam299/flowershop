@@ -76,7 +76,7 @@ export function SignUpSide() {
               }}
             >
               <Typography variant="h4" fontWeight={700} color="#c2185b">
-                🍰 Join Shahbag Cake Shop
+                🍰 Join Aishajaa's Cake Shop
               </Typography>
               <Typography variant="subtitle1" sx={{ mt: 1, mb: 2, color: "#777" }}>
                 Get exclusive cake offers, deals & baking inspiration!

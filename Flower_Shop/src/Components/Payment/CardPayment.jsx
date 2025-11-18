@@ -51,7 +51,7 @@ export const CardPayment = () => {
       <div className="payment-container">
         <div className="payment-left">
           <div className="payment-header">
-            <h3>🎂 Shahbag Cake Shop</h3>
+            <h3>🎂 Aishajaa's Cake Shop</h3>
             <p>Secure card payment powered by Shahbag Cakes</p>
           </div>
           <div className="payment-summary">

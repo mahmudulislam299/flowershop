@@ -26,7 +26,7 @@ export const UpiPayment = () => {
       <div className="payment-container">
         <div className="payment-left">
           <div className="payment-header">
-            <h3>🎂 Shahbag Cake Shop</h3>
+            <h3>🎂 Aishajaa's Cake Shop</h3>
             <p>Pay instantly using your favorite wallet</p>
           </div>
           <div className="payment-summary">

@@ -257,7 +257,7 @@ export const HomePage = () => {
 
       {/* ===== Why Choose Us ===== */}
       <section className="why-us">
-        <h2>Why People Love Shahbag Cake Shop</h2>
+        <h2>Why People Love Aishajaa's Cake Shop</h2>
         <div className="why-grid">
           <div className="why-card">
             <h3>✅ Premium Ingredients</h3>

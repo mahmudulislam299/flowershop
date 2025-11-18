@@ -11,10 +11,10 @@ export const Navbar = () => {
           <img
             className="logo_flower_shop"
             src="cake-logo.jpg"
-            alt="Shahbag Cake Shop Logo"
+            alt="Aishajaa's Cake Shop Logo"
           />
           <div className="navbar_brand_text">
-            <span className="navbar_brand_title">Shahbag Cake Shop</span>
+            <span className="navbar_brand_title">Aishajaa's Cake Shop</span>
             <span className="navbar_brand_tagline">
               Fresh cakes, every celebration 🎂
             </span>

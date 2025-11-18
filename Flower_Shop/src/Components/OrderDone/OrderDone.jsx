@@ -31,7 +31,7 @@ export const OrderPlaced = () => {
         </button>
 
         <p className="order-subtext">
-          Thank you for choosing <strong>Shahbag Cake Shop</strong>.  
+          Thank you for choosing <strong>Aishajaa's Cake Shop</strong>.  
           We’re honoured to be part of your celebration! 🎂✨
         </p>
       </div>

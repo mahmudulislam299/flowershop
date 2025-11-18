@@ -42,7 +42,7 @@ export function SignInSide() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         localStorage.setItem("token", JSON.stringify(userCredential.user));
-        alert("Welcome back to Shahbag Cake Shop 🎂");
+        alert("Welcome back to Aishajaa's Cake Shop 🎂");
         navigate("/");
       })
       .catch((err) => {

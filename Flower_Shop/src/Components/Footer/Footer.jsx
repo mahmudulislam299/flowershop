@@ -7,10 +7,10 @@ export const Footer = () => {
         {/* Brand / Logo */}
         <div className="footer-brand">
           <div className="footer-logo">
-            <img src="cake-logo.jpg" alt="Shahbag Cake Shop Logo" />
+            <img src="cake-logo.jpg" alt="Aishajaa's Cake Shop Logo" />
           </div>
           <div className="footer-brand-text">
-            <h2>Shahbag Cake Shop</h2>
+            <h2>Aishajaa's Cake Shop</h2>
             <p>Freshly baked happiness for every occasion.</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export const Footer = () => {
       {/* Bottom text */}
       <div className="footer-text">
         <p>
-          Choose <strong>Shahbag Cake Shop</strong> for fresh, made-to-order cakes,
+          Choose <strong>Aishajaa's Cake Shop</strong> for fresh, made-to-order cakes,
           cupcakes and desserts for birthdays, weddings and all your special days.
         </p>
         <p>
@@ -52,7 +52,7 @@ export const Footer = () => {
           Motijheel & Old Dhaka). Order online and get your cake delivered with care.
         </p>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Shahbag Cake Shop. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Aishajaa's Cake Shop. All rights reserved.</span>
           <span>Made with ❤️ in Dhaka</span>
         </div>
       </div>
