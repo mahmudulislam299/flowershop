@@ -133,21 +133,155 @@ export const HomePage = () => {
         </div>
       </div>
 
+      {/* ===== Highlight Bar (Delivery / Freshness / Support) ===== */}
+      <section className="info-strip">
+        <div className="info-item">
+          <span className="info-icon">🚚</span>
+          <div>
+            <h4>Same-Day Delivery</h4>
+            <p>Shahbag & nearby areas (T&amp;C apply)</p>
+          </div>
+        </div>
+        <div className="info-item">
+          <span className="info-icon">🧁</span>
+          <div>
+            <h4>Freshly Baked</h4>
+            <p>Baked just before your order time</p>
+          </div>
+        </div>
+        <div className="info-item">
+          <span className="info-icon">📞</span>
+          <div>
+            <h4>Instant Support</h4>
+            <p>Call / WhatsApp for custom orders</p>
+          </div>
+        </div>
+      </section>
+
       {/* ===== Featured Cakes Section ===== */}
       <section className="featured-cakes">
-        <h2>Our Best Sellers</h2>
-        <div className="cake-grid">
-          {cakes.map((cake) => (
-            <Link key={cake.id} to={`/cake/${cake.id}`} className="cake-card">
-              <img
-                src={getCakeImage(cake.id)}
-                alt={cake.name}
-                style={{ borderRadius: "10px" }}
-              />
-              <h3>{cake.name}</h3>
-              <p>৳ {cake.price}</p>
-            </Link>
-          ))}
+        <div className="section-header">
+          <div>
+            <h2>Our Best Sellers</h2>
+            <p className="section-subtitle">
+              Customers’ most loved cakes – perfect for any celebration.
+            </p>
+          </div>
+
+          {/* 🔘 See All Cakes button */}
+          <Link to="/product-page" className="see-all-btn">
+            See All Cakes →
+          </Link>
+        </div>
+
+        {cakes.length === 0 ? (
+          <p className="no-cakes">
+            Our cakes are getting ready in the oven... 🍰  
+            Please check back in a moment.
+          </p>
+        ) : (
+          <div className="cake-grid">
+            {cakes.map((cake) => (
+              <Link
+                key={cake.id}
+                to={`/cake/${cake.id}`}
+                className="cake-card"
+              >
+                <div className="cake-image-wrapper">
+                  <img
+                    src={getCakeImage(cake.id)}
+                    alt={cake.name}
+                    className="cake-image"
+                  />
+                </div>
+                <h3>{cake.name}</h3>
+                <p className="cake-price">৳ {cake.price}</p>
+                <button className="cake-view-btn">View Details</button>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ===== Shop by Occasion ===== */}
+      <section className="occasion-section">
+        <h2>Shop by Occasion</h2>
+        <p className="section-subtitle">
+          Pick the perfect cake based on your special moment.
+        </p>
+        <div className="occasion-grid">
+          <Link to="/product-page" className="occasion-card">
+            <span className="occasion-icon">🎉</span>
+            <h3>Birthday Cakes</h3>
+            <p>Classic, premium & photo cakes for all ages.</p>
+          </Link>
+          <Link to="/product-page" className="occasion-card">
+            <span className="occasion-icon">❤️</span>
+            <h3>Anniversary Cakes</h3>
+            <p>Elegant designs to celebrate your love.</p>
+          </Link>
+          <Link to="/product-page" className="occasion-card">
+            <span className="occasion-icon">🦄</span>
+            <h3>Kids Theme Cakes</h3>
+            <p>Cartoon, superhero, princess & more.</p>
+          </Link>
+          <Link to="/product-page" className="occasion-card">
+            <span className="occasion-icon">📸</span>
+            <h3>Photo Cakes</h3>
+            <p>Print your favorite memories on cake.</p>
+          </Link>
+        </div>
+      </section>
+
+      {/* ===== How It Works ===== */}
+      <section className="how-it-works">
+        <h2>How to Order</h2>
+        <div className="steps-grid">
+          <div className="step-card">
+            <span className="step-number">1</span>
+            <h3>Choose Your Cake</h3>
+            <p>Select flavor, size & custom message.</p>
+          </div>
+          <div className="step-card">
+            <span className="step-number">2</span>
+            <h3>Select Date & Time</h3>
+            <p>Pick delivery time – same-day available.</p>
+          </div>
+          <div className="step-card">
+            <span className="step-number">3</span>
+            <h3>We Deliver with Care</h3>
+            <p>Fresh, on-time delivery right to your door.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Why Choose Us ===== */}
+      <section className="why-us">
+        <h2>Why People Love Shahbag Cake Shop</h2>
+        <div className="why-grid">
+          <div className="why-card">
+            <h3>✅ Premium Ingredients</h3>
+            <p>No compromise on quality, taste & hygiene.</p>
+          </div>
+          <div className="why-card">
+            <h3>✅ On-Time Delivery</h3>
+            <p>We know timing matters for your surprise.</p>
+          </div>
+          <div className="why-card">
+            <h3>✅ Custom Designs</h3>
+            <p>Send us a design and we’ll bake it for you.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA strip */}
+      <section className="bottom-cta">
+        <div className="bottom-cta-content">
+          <h2>Ready to Make Someone Smile Today? 😊</h2>
+          <p>Order a cake now and we’ll handle the rest.</p>
+          <Link to="/product-page" className="bottom-cta-btn">
+            See All Cakes
+          </Link>
         </div>
       </section>
     </div>
