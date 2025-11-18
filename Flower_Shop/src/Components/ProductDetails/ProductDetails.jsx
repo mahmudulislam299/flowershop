@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import placeholderCake from "../../images/slider1.jpg";
+import "./ProductDetails.css"; // 👈 NEW
 
 // 👇 Load all .jpg files dynamically from src/images/
 const images = require.context("../../images", false, /\.jpg$/);
@@ -82,9 +83,9 @@ export const ProductDetails = () => {
     return 1; // default 1-pound
   };
 
-  const basePrice = Number(data?.price) || 0;      // price per pound
+  const basePrice = Number(data?.price) || 0; // price per pound
   const multiplier = getMultiplier();
-  const finalPrice = basePrice * multiplier;       // total price based on size
+  const finalPrice = basePrice * multiplier; // total price based on size
 
   const handleCheckout = () => {
     // Simple validation
@@ -105,7 +106,7 @@ export const ProductDetails = () => {
         productName: data.name,
         basePrice,
         multiplier,
-        price: finalPrice,          // ✅ send calculated price
+        price: finalPrice,
         size: value,
         deliveryMethod,
         address: deliveryMethod === "home" ? address : null,
@@ -129,27 +130,27 @@ export const ProductDetails = () => {
 
   return (
     <div className="product-container">
-      <h1>{data.name}</h1>
+      <h1 className="product-title">{data.name}</h1>
 
       {/* 💰 Dynamic price */}
-      <h4>Price: ৳ {finalPrice}</h4>
-      <p style={{ marginTop: "-8px", color: "#777" }}>
+      <h4 className="product-price">Price: ৳ {finalPrice}</h4>
+      <p className="product-base-price">
         Base price (per pound): ৳ {basePrice}
       </p>
 
-      <hr style={{ display: "flex", width: "90%" }} />
+      <hr className="product-divider" />
 
-      <div style={{ display: "flex", width: "90%", gap: "24px" }}>
+      <div className="product-content">
         {/* ✅ Uses local image with fallback */}
         <img
           src={getImageUrl(data.id)}
           alt={data.name || "Cake"}
-          style={{ margin: "auto", width: "450px", borderRadius: "10px" }}
+          className="product-image"
         />
 
-        <div style={{ margin: "auto", width: "50%" }}>
+        <div className="product-details">
           {/* Size selection */}
-          <FormControl component="fieldset" style={{ marginBottom: "16px" }}>
+          <FormControl component="fieldset" className="product-size-section">
             <FormLabel id="size-group">Select Size</FormLabel>
             <RadioGroup
               aria-labelledby="size-group"
@@ -175,10 +176,10 @@ export const ProductDetails = () => {
             </RadioGroup>
           </FormControl>
 
-          <hr style={{ width: "60%" }} />
+          <hr className="product-divider small" />
 
           {/* Delivery method (mutually exclusive) */}
-          <FormControl component="fieldset" style={{ marginTop: "16px" }}>
+          <FormControl component="fieldset" className="delivery-method">
             <FormLabel>Delivery Method</FormLabel>
             <RadioGroup
               name="delivery-method"
@@ -200,56 +201,40 @@ export const ProductDetails = () => {
 
           {/* Address - only for home delivery */}
           {deliveryMethod === "home" && (
-            <div style={{ width: "60%", margin: "16px 0" }}>
-              <label style={{ display: "block", marginBottom: "4px" }}>
+            <div className="delivery-address-container">
+              <label className="delivery-address-label">
                 Delivery Address
               </label>
               <textarea
                 placeholder="House / Road / Area / City / Zip Code"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                style={{
-                  width: "100%",
-                  minHeight: "70px",
-                  padding: "8px",
-                  boxSizing: "border-box",
-                  resize: "vertical",
-                }}
+                className="delivery-address-textarea"
               />
             </div>
           )}
 
           {/* Date & time */}
-          <div style={{ width: "60%", margin: "16px 0" }}>
+          <div className="delivery-datetime">
             <h4>Delivery Date</h4>
             <input
               type="date"
               value={deliveryDate}
               onChange={(e) => setDeliveryDate(e.target.value)}
-              style={{
-                width: "100%",
-                marginBottom: "10px",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
+              className="delivery-input"
             />
 
-            <h4>Delivery Time</h4>
+            <h4 style={{ marginTop: "12px" }}>Delivery Time</h4>
             <input
               type="time"
               value={deliveryTime}
               onChange={(e) => setDeliveryTime(e.target.value)}
-              style={{
-                width: "100%",
-                marginTop: "4px",
-                padding: "8px",
-                boxSizing: "border-box",
-              }}
+              className="delivery-input"
             />
           </div>
 
           {/* Checkout */}
-          <div style={{ width: "60%", margin: "20px auto 0" }}>
+          <div className="checkout-container">
             <Stack direction="row" spacing={2} style={{ marginTop: "10px" }}>
               <Button variant="contained" onClick={handleCheckout}>
                 Checkout
